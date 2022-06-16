@@ -1,0 +1,7 @@
+* {
+  background-color: #fff;
+}
+
+.canvas:hover {
+  cursor: url(../png/icons8-edit-50.png) 2 45, none;
+}
