@@ -2,10 +2,12 @@
 
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
+// canvas line configuration
 const drawLineWidth = document.getElementById("lineWidth");
+const drawLineColor = document.getElementById("lineColor");
+// canvas size configuration
 const canvasWidth = document.getElementById("canvasWidth");
 const canvasHeight = document.getElementById("canvasHeight");
-const drawLineColor = document.getElementById("lineColor");
 const canvasConfig = {
   maxWidth: 800,
   maxHeight: 800,
@@ -31,36 +33,30 @@ let lineColor = "#000";
 
 function lineStart(e) {
   e.preventDefault();
-  x = e.offsetX || e.touches[0].clientX;
-  y = e.offsetY || e.touches[0].clientY;
+  x = e.offsetX || e.targetTouches[0].clientX - canvas.offsetLeft;
+  y = e.offsetY || e.targetTouches[0].clientY - canvas.offsetTop;
   isDrawing = true;
 }
 
 function lineMove(e) {
-  // e.preventDefault();
-  if (isDrawing === true) {
-    drawLine(
-      context,
-      x,
-      y,
-      e.offsetX || e.touches[0].clientX,
-      e.offsetY || e.touches[0].clientY
-    );
-    x = e.offsetX || e.touches[0].clientX;
-    y = e.offsetY || e.touches[0].clientY;
-  }
-}
-
-function lineEnd(e) {
   e.preventDefault();
   if (isDrawing === true) {
     drawLine(
       context,
       x,
       y,
-      e.offsetX || e.changedTouches[0].clientX,
-      e.offsetY || e.changedTouches[0].clientY
+      e.offsetX || e.targetTouches[0].clientX - canvas.offsetLeft,
+      e.offsetY || e.targetTouches[0].clientY - canvas.offsetTop
     );
+    x = e.offsetX || e.targetTouches[0].clientX - canvas.offsetLeft;
+    y = e.offsetY || e.targetTouches[0].clientY - canvas.offsetTop;
+  }
+}
+
+function lineEnd(e) {
+  e.preventDefault();
+  if (isDrawing === true) {
+    drawLine(context, x, y, e.offsetX, e.offsetY);
     isDrawing = false;
   }
 }
@@ -78,6 +74,7 @@ function drawLine(context, x1, y1, x2, y2) {
 //*----------------------------------------------------------------
 
 canvas.addEventListener("touchstart", (e) => {
+  console.log(x, y);
   lineStart(e);
 });
 
@@ -86,6 +83,7 @@ canvas.addEventListener("touchmove", (e) => {
 });
 
 canvas.addEventListener("touchend", (e) => {
+  console.log(x, y);
   lineEnd(e);
 });
 
@@ -101,7 +99,6 @@ canvas.addEventListener("mouseup", (e) => {
 
 drawLineWidth.addEventListener("change", (e) => {
   lineWidth = e.target.value;
-  console.log(lineWidth);
 });
 
 canvasWidth.addEventListener("change", (e) => {
@@ -124,5 +121,7 @@ document.addEventListener("mousemove", (e) => {
     e.clientY > canvas.offsetTop + canvas.height
   ) {
     isDrawing = false;
+  } else {
+    return;
   }
 });

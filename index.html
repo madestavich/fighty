@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="css/inputs.css" />
     <link rel="stylesheet" href="css/css.css" />
   </head>
   <body class="body">
@@ -14,9 +15,14 @@
       </div>
     </header>
     <section class="editor">
-      <div class="toolbar">
+      <div class="canvas-wrapper">
+        <canvas class="canvas" id="canvas"></canvas>
+      </div>
+      <div class="toolbar-wrapper">
         <div class="toolbar-settings">
+          <label class="setting-label" for="lineWidth">Line size</label>
           <input
+            class="range-input non-dragable"
             type="range"
             name="lineWidth"
             id="lineWidth"
@@ -24,7 +30,9 @@
             max="6"
             value="1"
           />
+          <label class="setting-label" for="canvasWidth">List width</label>
           <input
+            class="range-input non-dragable"
             type="range"
             name="canvasWidth"
             id="canvasWidth"
@@ -32,7 +40,9 @@
             max="800"
             value="500"
           />
+          <label class="setting-label" for="canvasHeight">List height</label>
           <input
+            class="range-input non-dragable"
             type="range"
             name="canvasHeight"
             id="canvasHeight"
@@ -40,11 +50,13 @@
             max="800"
             value="700"
           />
-          <input type="color" name="lineColor" id="lineColor" />
+          <input
+            class="color-input non-dragable"
+            type="color"
+            name="lineColor"
+            id="lineColor"
+          />
         </div>
-      </div>
-      <div class="canvas-wrapper">
-        <canvas class="canvas" id="canvas"></canvas>
       </div>
     </section>
     <script src="./js/code.js" type="module"></script>

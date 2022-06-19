@@ -4,14 +4,16 @@ html,
   /* overflow: hidden; */
   min-height: 100%;
   height: 100%;
-  background-color: rgb(143, 136, 136);
+  background-color: rgb(77, 71, 71);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
 }
 
 .header {
   display: flex;
   align-items: center;
   height: 5%;
-  background: rgb(121, 73, 73);
+  background: rgb(0, 0, 0);
 }
 
 .logo {
@@ -23,37 +25,61 @@ html,
   font-weight: bold;
   text-transform: uppercase;
   margin: 0;
+  color: rgb(209, 26, 26);
 }
 
 .editor {
+  margin: 1% 1%;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
 }
 
-.toolbar {
+.toolbar-wrapper {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  margin: 1%;
   width: 25%;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .toolbar-settings {
   display: flex;
+  border: 1px solid black;
   flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background: rgb(182, 171, 171);
+}
+
+.setting-label {
+  font-size: medium;
+  font-weight: 700;
+  color: rgb(41, 28, 12);
+}
+
+.range-input {
+  margin: 5px 20px;
+}
+
+.color-input {
+  margin: 15px;
+  border: 3px solid black;
+  border-radius: 35px;
 }
 
 .canvas-wrapper {
   display: flex;
-  justify-content: flex-start;
-  width: 75%;
+  justify-content: center;
+  width: 65%;
+  background: rgb(133, 133, 156);
 }
 
 .canvas {
   margin: 10px;
   background: rgb(216, 205, 205);
+  border: 1px solid black;
+  box-sizing: border-box;
 }
 
 .canvas:hover {
-  cursor: url(../png/icons8-edit-50.png) 2 45, none;
+  cursor: url(../png/icons8-edit-50.png) 1 45, none;
 }
