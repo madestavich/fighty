@@ -5,6 +5,7 @@ const context = canvas.getContext("2d");
 // canvas line configuration
 const drawLineWidth = document.getElementById("lineWidth");
 const drawLineColor = document.getElementById("lineColor");
+const eraser = document.getElementById("eraser");
 // canvas size configuration
 const canvasWidth = document.getElementById("canvasWidth");
 const canvasHeight = document.getElementById("canvasHeight");
@@ -29,7 +30,16 @@ let x = 0;
 let y = 0;
 let lineWidth = 2;
 let lineColor = "#000";
+let eraserStatus = false;
+let isErasing = false;
+let eraserSize = { x: 40, y: 20 };
+
 //?--------------------------------------
+
+function erase(e) {
+  e.preventDefault();
+  context.clearRect(e.offsetX, e.offsetY, eraserSize.x, eraserSize.y);
+}
 
 function lineStart(e) {
   e.preventDefault();
@@ -39,7 +49,6 @@ function lineStart(e) {
 }
 
 function lineMove(e) {
-  e.preventDefault();
   if (isDrawing === true) {
     drawLine(
       context,
@@ -88,13 +97,27 @@ canvas.addEventListener("touchend", (e) => {
 });
 
 canvas.addEventListener("mousedown", (e) => {
-  lineStart(e);
+  if (eraserStatus) {
+    isErasing = true;
+    erase(e);
+  } else {
+    lineStart(e);
+  }
 });
 canvas.addEventListener("mousemove", (e) => {
-  lineMove(e);
+  if (isErasing) {
+    erase(e);
+  } else {
+    lineMove(e);
+  }
 });
 canvas.addEventListener("mouseup", (e) => {
-  lineEnd(e);
+  if (isErasing) {
+    erase(e);
+    isErasing = false;
+  } else {
+    lineEnd(e);
+  }
 });
 
 drawLineWidth.addEventListener("change", (e) => {
@@ -124,4 +147,15 @@ document.addEventListener("mousemove", (e) => {
   } else {
     return;
   }
+});
+
+eraser.addEventListener("change", () => {
+  if (!eraserStatus) {
+    eraserStatus = true;
+    canvas.classList.add("eraser-enabled");
+  } else {
+    eraserStatus = false;
+    canvas.classList.remove("eraser-enabled");
+  }
+  console.log(eraserStatus);
 });

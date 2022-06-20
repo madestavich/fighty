@@ -1,7 +1,7 @@
 html,
 .body {
   margin: 0 auto;
-  /* overflow: hidden; */
+  overflow: hidden;
   min-height: 100%;
   height: 100%;
   background-color: rgb(77, 71, 71);
@@ -81,5 +81,9 @@ html,
 }
 
 .canvas:hover {
-  cursor: url(../png/icons8-edit-50.png) 1 45, none;
+  cursor: url(../png/icons8-broken-pencil-50.png) 1 45, none;
+}
+
+.eraser-enabled:hover {
+  cursor: url(../png/icons8-erase-50.png) 1 45, none;
 }
