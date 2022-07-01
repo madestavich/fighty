@@ -76,6 +76,7 @@ html,
 .canvas {
   margin: 10px;
   background: rgb(216, 205, 205);
+  background-image: url(https://zbroia.com.ua/uploads/shop/products/large/a77636b579ccb0ea45bdd612ffc139ef.jpg);
   border: 1px solid black;
   box-sizing: border-box;
 }

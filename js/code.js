@@ -30,7 +30,7 @@ let x = 0;
 let y = 0;
 let lineWidth = 2;
 let lineColor = "#000";
-let eraserStatus = false;
+let eraserEnabled = false;
 let isErasing = false;
 let eraserSize = { x: 40, y: 20 };
 
@@ -83,7 +83,6 @@ function drawLine(context, x1, y1, x2, y2) {
 //*----------------------------------------------------------------
 
 canvas.addEventListener("touchstart", (e) => {
-  console.log(x, y);
   lineStart(e);
 });
 
@@ -92,12 +91,11 @@ canvas.addEventListener("touchmove", (e) => {
 });
 
 canvas.addEventListener("touchend", (e) => {
-  console.log(x, y);
   lineEnd(e);
 });
 
 canvas.addEventListener("mousedown", (e) => {
-  if (eraserStatus) {
+  if (eraserEnabled) {
     isErasing = true;
     erase(e);
   } else {
@@ -150,12 +148,31 @@ document.addEventListener("mousemove", (e) => {
 });
 
 eraser.addEventListener("change", () => {
-  if (!eraserStatus) {
-    eraserStatus = true;
+  if (!eraserEnabled) {
+    eraserEnabled = true;
     canvas.classList.add("eraser-enabled");
   } else {
-    eraserStatus = false;
+    eraserEnabled = false;
     canvas.classList.remove("eraser-enabled");
   }
-  console.log(eraserStatus);
 });
+
+let btn = document.getElementById("save");
+
+btn.onclick = () => {
+  let img = canvas.toDataURL("image/png");
+  fetch("http://127.0.0.1:3000/", {
+    method: "post",
+    mode: "no-cors",
+    headers: {
+      // "Content-Type": "application/json",
+    },
+    body: JSON.stringify(canvasConfig),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+    });
+};
